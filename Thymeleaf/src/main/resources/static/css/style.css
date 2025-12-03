@@ -1,0 +1,8 @@
+body {
+    background: #f8f9fa;
+}
+.card.text-bg-primary { background-color: #0d6efd !important; }
+.card.text-bg-success { background-color: #198754 !important; }
+.card.text-bg-info { background-color: #0dcaf0 !important; }
+.card.text-bg-danger { background-color: #dc3545 !important; }
+.card .card-body p { color: #fff; }
