@@ -1,6 +1,68 @@
-body { font-family: Arial, Helvetica, sans-serif; background:#f7f7f7; color:#222; }
-.login-container { background:white; padding:20px; border-radius:6px; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
-input[type="text"], input[type="password"] { width:100%; padding:10px; margin:8px 0; box-sizing:border-box; }
-button { width:100%; padding:10px; background:#1e88e5; color:white; border:none; border-radius:4px; cursor:pointer; }
-button:hover{ opacity:0.95; }
-.message { margin:8px 0; display:block; }
+:root{
+	--bg:#f4f6f8;
+	--card:#ffffff;
+	--muted:#6b7280;
+	--primary:#2563eb;
+	--accent:#06b6d4;
+}
+
+html,body{height:100%;}
+body{
+	font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	background:var(--bg);
+	color:#0f172a;
+	margin:0;
+}
+
+/* Header */
+.site-header{
+	background:var(--card);
+	box-shadow:0 2px 6px rgba(15,23,42,0.06);
+	padding:12px 20px;
+	display:flex;
+	align-items:center;
+	gap:12px;
+}
+.site-header .logo{height:48px;}
+.site-header .brand{font-size:18px; font-weight:600; margin:0;}
+.site-header .nav{margin-left:auto; display:flex; gap:12px; align-items:center}
+.site-header .nav a{color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:6px}
+.site-header .nav a:hover{background:rgba(37,99,235,0.08); color:var(--primary)}
+
+/* Page container */
+.container{max-width:1100px; margin:24px auto; padding:20px}
+
+/* Cards */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px}
+.card{background:var(--card); padding:18px; border-radius:10px; box-shadow:0 6px 18px rgba(2,6,23,0.04);}
+.card h3{margin:0 0 8px 0; font-size:14px; color:var(--muted)}
+.card p{margin:0; font-size:20px; font-weight:700}
+
+/* Module card specifics */
+.module-card{display:flex; flex-direction:column; gap:8px; padding:18px; min-height:110px}
+.module-card h3{font-size:16px; margin:0}
+.module-card h3 a{color:var(--primary); text-decoration:none}
+.module-card h3 a:hover{text-decoration:underline}
+.module-card p{font-size:13px; color:var(--muted); font-weight:500}
+.module-card:hover{transform:translateY(-4px); transition:transform 160ms ease; box-shadow:0 10px 30px rgba(2,6,23,0.08)}
+
+/* Table */
+.table{width:100%; border-collapse:collapse; background:var(--card); border-radius:8px; overflow:hidden}
+.table thead{background:#f8fafc}
+.table th, .table td{padding:12px 14px; text-align:left; border-bottom:1px solid #eef2f7}
+
+/* Forms and buttons */
+.login-container{background:var(--card); padding:22px; border-radius:10px; box-shadow:0 8px 24px rgba(2,6,23,0.06)}
+input[type="text"], input[type="password"], input[type="email"]{width:100%; padding:10px; margin:8px 0; box-sizing:border-box; border:1px solid #e6eef6; border-radius:6px}
+button{padding:10px 14px; background:var(--primary); color:white; border:none; border-radius:8px; cursor:pointer}
+button.secondary{background:transparent; color:var(--muted); border:1px solid #e6eef6}
+
+/* Utilities */
+.muted{color:var(--muted)}
+.mt-12{margin-top:12px}
+.mb-12{margin-bottom:12px}
+
+@media (max-width:600px){
+	.site-header .brand{font-size:16px}
+	.container{padding:12px}
+}

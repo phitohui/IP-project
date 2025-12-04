@@ -3,18 +3,21 @@
 <head>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Menu - Persatuan Anak Kelantan</title>
-  <link rel="stylesheet" th:href="@{/css/Styles.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-  <div th:replace="fragments :: header"></div>
+  <div th:replace="~{fragments :: header}"></div>
 
-  <main style="padding:20px;">
+  <main class="container">
     <h2>Menu Utama</h2>
-    <p>Selamat datang, <span th:text="${user.username}">User</span> (Role: <span th:text="${user.role}">Role</span>)</p>
+    <p>Selamat datang, <span th:text="${user.username}">User</span> <span class="muted">(Role: <span th:text="${user.role}">Role</span>)</span></p>
 
-    <div>
-      <a th:href="@{/some-page}">Fungsi 1</a>
-      <!-- add menu items -->
+    <div class="mt-12">
+      <a th:href="@{/dashboard}" class="button">Dashboard</a>
+      <a th:href="@{/meetings}" class="button secondary">Meetings</a>
+      <a th:href="@{/attendance}" class="button secondary">Attendance</a>
+      <a th:href="@{/members}" class="button secondary">Members</a>
+      <a th:href="@{/profile}" class="button secondary">My Profile</a>
     </div>
   </main>
 </body>

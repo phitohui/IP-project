@@ -1,11 +1,7 @@
-package com.example.dashboard;
+package com.example.dashboard.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+// This file previously contained a public class duplicate of
+// `ThymeleafDashboardApplicationController`. It has been emptied
+// to avoid duplicate-class compilation errors. The real controller
+// class is in `ThymeleafDashboardApplicationController.java`.
 
-@SpringBootApplication
-public class ThymeleafDashboardApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(ThymeleafDashboardApplication.class, args);
-    }
-}

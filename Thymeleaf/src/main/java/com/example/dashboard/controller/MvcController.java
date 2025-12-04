@@ -1,11 +1,16 @@
-package com.example.pak.controller;
+package com.example.dashboard.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.pak.model.User;
 import com.example.pak.service.UserService;
+
 import jakarta.servlet.http.HttpSession;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MvcController {
@@ -14,6 +19,11 @@ public class MvcController {
 
     @GetMapping("/")
     public String getLoginPage(Model model){
+        return "login";
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm(Model model) {
         return "login";
     }
 
@@ -27,7 +37,7 @@ public class MvcController {
             User u = opt.get();
             session.setAttribute("user", u);
             // redirect to menu
-            return "redirect:/menu";
+            return "redirect:/dashboard";
         } else {
             model.addAttribute("message", "Nama pengguna atau kata laluan salah");
             model.addAttribute("error", true);
@@ -60,17 +70,11 @@ public class MvcController {
         return "login";
     }
 
-    @GetMapping("/menu")
-    public String menuPage(HttpSession session, Model model) {
-        User u = (User) session.getAttribute("user");
-        if (u == null) return "redirect:/";
-        model.addAttribute("user", u);
-        return "menu";
-    }
-
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session, RedirectAttributes redirectAttrs){
         session.invalidate();
-        return "redirect:/";
+        redirectAttrs.addFlashAttribute("message", "Anda telah log keluar");
+        redirectAttrs.addFlashAttribute("error", false);
+        return "redirect:/login";
     }
 }

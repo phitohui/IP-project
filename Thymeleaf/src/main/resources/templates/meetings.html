@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title th:text="${title}">Meetings</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  </head>
+<body>
+  <div th:replace="~{fragments :: header}"></div>
+  <main class="container">
+    <h1 th:text="${title}">Meeting Management</h1>
+    
+    <div class="mt-12" th:if="${message}">
+      <p th:text="${message}" th:style="'color:' + (${error} ? 'red' : 'green')"></p>
+    </div>
+    
+    <div class="mt-12">
+      <a th:href="@{/meetings/new}" class="button">New Meeting</a>
+    </div>
+
+    <div class="mt-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Minutes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="m : ${meetings}">
+            <td th:text="${m.id}">1</td>
+            <td th:text="${m.date}">2025-11-10</td>
+            <td th:text="${m.title}">Title</td>
+            <td>
+              <span th:if="${m.minutes}" style="color: green; font-weight: bold;">✓ Uploaded</span>
+              <span th:unless="${m.minutes}" style="color: orange; font-weight: bold;">⚠ Pending</span>
+            </td>
+            <td>
+              <a th:if="${not m.minutes}" th:href="@{/meetings/upload-minutes(id=${m.id})}" class="button secondary">Upload Minutes</a>
+              <a th:if="${m.minutes}" th:href="@{#}" class="button secondary" disabled>View Minutes</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

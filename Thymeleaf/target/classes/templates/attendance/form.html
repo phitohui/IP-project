@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title th:text="${title}">Record Attendance</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <div th:replace="~{fragments :: header}"></div>
+
+  <main class="container">
+    <h1 th:text="${title}">Record Attendance</h1>
+
+    <div class="mt-12">
+      <form th:action="@{/attendance/save}" method="post" class="form">
+        <div class="form-group">
+          <label for="meetingId">Meeting ID:</label>
+          <input type="number" id="meetingId" name="meetingId" min="1" placeholder="e.g., 1" required>
+        </div>
+
+        <div class="form-group">
+          <label for="member">Member Name:</label>
+          <select id="member" name="member" required>
+            <option value="">-- Select Member --</option>
+            <option th:each="m : ${members}" th:value="${m}" th:text="${m}">Member</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="status">Attendance Status:</label>
+          <select id="status" name="status" required>
+            <option value="">-- Select Status --</option>
+            <option value="Present">✓ Present</option>
+            <option value="Absent">✗ Absent</option>
+          </select>
+        </div>
+
+        <div class="form-actions mt-12">
+          <button type="submit" class="button">Record Attendance</button>
+          <a th:href="@{/attendance}" class="button secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <style>
+    .form { max-width: 500px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+    .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
+    .form-actions { display: flex; gap: 10px; }
+  </style>
+</body>
+</html>

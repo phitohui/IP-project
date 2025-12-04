@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title th:text="${title}">Attendance</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <div th:replace="~{fragments :: header}"></div>
+  <main class="container">
+    <h1 th:text="${title}">Attendance Management</h1>
+    
+    <div class="mt-12" th:if="${message}">
+      <p th:text="${message}" th:style="'color:' + (${error} ? 'red' : 'green')"></p>
+    </div>
+    
+    <div class="mt-12">
+      <a th:href="@{/attendance/new}" class="button">Record Attendance</a>
+    </div>
+
+    <div class="mt-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Meeting ID</th>
+            <th>Member</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="a : ${attendanceList}">
+            <td th:text="${a.id}">1</td>
+            <td th:text="${a.meetingId}">1</td>
+            <td th:text="${a.member}">Alice</td>
+            <td>
+              <span th:if="${a.status == 'Present'}" style="color: green; font-weight: bold;">✓ Present</span>
+              <span th:if="${a.status == 'Absent'}" style="color: red; font-weight: bold;">✗ Absent</span>
+            </td>
+            <td>
+              <form th:action="@{/attendance/update-status}" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${a.id}">
+                <input type="hidden" name="newStatus" th:value="${a.status == 'Present' ? 'Absent' : 'Present'}">
+                <button type="submit" class="button secondary" th:text="${a.status == 'Present' ? 'Mark Absent' : 'Mark Present'}">
+                  Mark Present
+                </button>
+              </form>
+              <form th:action="@{/attendance/delete}" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${a.id}">
+                <button type="submit" class="button secondary" onclick="return confirm('Delete this record?')">Delete</button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

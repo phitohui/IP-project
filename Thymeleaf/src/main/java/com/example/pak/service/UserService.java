@@ -1,16 +1,21 @@
 package com.example.pak.service;
 
-import com.example.pak.model.User;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import com.example.pak.model.User;
 
 @Service
 public class UserService {
     private final Map<String, User> users = new HashMap<>();
     private final Map<String, String> tokens = new HashMap<>(); 
     public UserService() {
-        users.put("admin", new User("admin","admin123","Pentadbir"));
+        // default admin credentials (username: admin, password: 12345)
+        users.put("admin", new User("admin","12345","Pentadbir"));
         users.put("user", new User("user","user123","Ahli"));
     }
 
@@ -40,5 +45,24 @@ public class UserService {
 
     public void revokeToken(String token){
         tokens.remove(token);
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return Optional.ofNullable(users.get(username));
+    }
+
+    public java.util.Collection<User> getAllUsers() {
+        return users.values();
+    }
+
+    public void updateUser(String oldUsername, String newUsername, String password, String role) {
+        users.remove(oldUsername);
+        User u = new User(newUsername, password, role);
+        users.put(newUsername, u);
+    }
+
+    public void deleteUser(String username) {
+        users.remove(username);
+        tokens.entrySet().removeIf(e -> e.getValue().equals(username));
     }
 }

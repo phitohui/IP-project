@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title th:text="${title}">Accounts</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <div th:replace="~{fragments :: header}"></div>
+
+  <main class="container">
+    <h1 th:text="${title}">Account Management</h1>
+    
+    <div class="mt-12">
+      <a th:href="@{/accounts/new}" class="button">Add New Account</a>
+    </div>
+
+    <div class="mt-12" th:if="${message}">
+      <p th:text="${message}" th:style="'color:' + (${error} ? 'red' : 'green')"></p>
+    </div>
+
+    <div class="mt-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="account : ${accounts}">
+            <td th:text="${account.username}">admin</td>
+            <td th:text="${account.role}">Pentadbir</td>
+            <td>
+              <a th:href="@{/accounts/edit(username=${account.username})}" class="button secondary">Edit</a>
+              <form th:action="@{/accounts/delete}" method="post" style="display:inline;">
+                <input type="hidden" name="username" th:value="${account.username}">
+                <button type="submit" class="button secondary" onclick="return confirm('Delete this account?')">Delete</button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-12">
+      <a th:href="@{/dashboard}" class="button secondary">Back to Dashboard</a>
+    </div>
+  </main>
+</body>
+</html>

@@ -5,13 +5,12 @@
   </head>
   <body>
     <div th:fragment="header">
-      <header style="display:flex; align-items:center; gap:12px; padding:12px 20px;">
-        <img th:src="@{/gmba/logo.png}" alt="logo" style="height:56px;">
-        <h2 style="margin:0;">Persatuan Anak Kelantan</h2>
-        <div style="margin-left:auto;">
-          <a th:href="@{/menu}" style="margin-right:12px;">Menu</a>
+      <header class="site-header">
+        <h2 class="brand">Persatuan Anak Kelantan</h2>
+        <nav class="nav">
+          <a th:href="@{/dashboard}">Menu</a>
           <a th:href="@{/logout}">Keluar</a>
-        </div>
+        </nav>
       </header>
     </div>
   </body>

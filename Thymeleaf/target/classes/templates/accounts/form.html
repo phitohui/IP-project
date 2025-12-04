@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title th:text="${title}">Add/Edit Account</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <div th:replace="~{fragments :: header}"></div>
+
+  <main class="container">
+    <h1 th:text="${title}">Add/Edit Account</h1>
+
+    <div class="mt-12">
+      <form th:action="@{/accounts/save}" method="post" class="form">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" th:value="${isNew} ? '' : ${account.username}" 
+                 th:readonly="${not isNew}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" 
+                 th:placeholder="${isNew} ? 'Enter password' : 'Leave blank to keep current'"
+                 th:required="${isNew}">
+        </div>
+
+        <div class="form-group">
+          <label for="role">Role:</label>
+          <select id="role" name="role" required>
+            <option value="">-- Select Role --</option>
+            <option value="Pentadbir" th:selected="${account.role == 'Pentadbir'}">Administrator</option>
+            <option value="Ahli" th:selected="${account.role == 'Ahli'}">Member</option>
+          </select>
+        </div>
+
+        <input type="hidden" name="oldUsername" th:value="${isNew} ? '' : ${account.username}">
+
+        <div class="form-actions mt-12">
+          <button type="submit" class="button">Save</button>
+          <a th:href="@{/accounts}" class="button secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+    <div class="mt-12" th:if="${error}">
+      <p th:text="${error}" style="color:red;"></p>
+    </div>
+  </main>
+
+  <style>
+    .form { max-width: 500px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+    .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+    .form-actions { display: flex; gap: 10px; }
+  </style>
+</body>
+</html>

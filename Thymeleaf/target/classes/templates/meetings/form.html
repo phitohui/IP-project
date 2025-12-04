@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title th:text="${title}">Create Meeting</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <div th:replace="~{fragments :: header}"></div>
+
+  <main class="container">
+    <h1 th:text="${title}">Create New Meeting</h1>
+
+    <div class="mt-12">
+      <form th:action="@{/meetings/save}" method="post" class="form">
+        <div class="form-group">
+          <label for="date">Meeting Date:</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+
+        <div class="form-group">
+          <label for="title">Meeting Title:</label>
+          <input type="text" id="title" name="title" placeholder="e.g., Annual General Meeting" required>
+        </div>
+
+        <div class="form-actions mt-12">
+          <button type="submit" class="button">Create Meeting</button>
+          <a th:href="@{/meetings}" class="button secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+    <div class="mt-12" th:if="${error}">
+      <p th:text="${error}" style="color:red;"></p>
+    </div>
+  </main>
+
+  <style>
+    .form { max-width: 500px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+    .form-group input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+    .form-actions { display: flex; gap: 10px; }
+  </style>
+</body>
+</html>

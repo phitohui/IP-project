@@ -1,6 +1,5 @@
 const API_BASE = '/api';
 
-// Show message
 function showMessage(elementId, message, isError = false) {
     const messageEl = document.getElementById(elementId);
     if (!messageEl) return;
@@ -9,14 +8,11 @@ function showMessage(elementId, message, isError = false) {
     messageEl.style.display = 'block';
 }
 
-// If user prefers form-based login, the HTML form uses POST /login — no JS needed.
-// But to keep the same JS-based login, we provide the fetch flow below:
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
 
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
-            // If you want the JS flow (AJAX), prevent the form's default submit:
             e.preventDefault();
 
             const username = document.getElementById('username').value;
@@ -39,8 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showMessage('message', 'Login successful! Redirecting...', false);
 
                     setTimeout(() => {
-                        // Redirect to menu (server-side page)
-                        window.location.href = '/menu';
+                        window.location.href = '/dashboard';
                     }, 700);
                 } else {
                     showMessage('message', data.message || 'Login failed', true);
